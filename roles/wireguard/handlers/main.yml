@@ -12,3 +12,21 @@
   command: sysctl -p
   become: true
   become_user: root
+
+- name: Restart nftables
+  systemd:
+    name: nftables
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  become: true
+  become_user: root
+
+- name: Restart avahi
+  systemd:
+    name: avahi-daemon
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  become: true
+  become_user: root

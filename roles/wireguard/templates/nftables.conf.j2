@@ -1,0 +1,38 @@
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+define WAN_IFC      = eth0
+define VPN_IFC      = wg0
+define VPN_NET      = 10.100.0.0/24
+define VPN_SERVICES = { 10.100.0.2, 10.0.0.4 }
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0;
+    }
+    chain forward {
+        type filter hook forward priority 0;
+        # forward WireGuard traffic, allowing it to access internet via WAN
+        iifname $VPN_IFC oifname $WAN_IFC ct state new accept
+    }
+    chain output {
+        type filter hook output priority 0;
+    }
+}
+
+table ip router {
+    # both prerouting and postrouting must be specified
+
+    chain prerouting {
+        type nat hook prerouting priority 0;
+    }
+
+    chain postrouting {
+        type nat hook postrouting priority 100;
+
+        # masquerade wireguard traffic
+        # make wireguard traffic look like it comes from the server itself
+        oifname $WAN_IFC ip saddr $VPN_NET masquerade
+    }
+}

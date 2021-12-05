@@ -79,6 +79,26 @@
         dest: /etc/wireguard/wg0.conf
       notify: Restart wg0
 
+    - name: Create nftables config
+      template:
+        src: nftables.conf.j2
+        dest: /etc/nftables.conf
+      notify: Restart nftables
+
+    - name: Enable DNS reflector
+      lineinfile:
+        path: "/etc/avahi/avahi-daemon.conf"
+        regexp: "^#enable-reflector=no"
+        line: "enable-reflector=yes"
+      notify: Restart avahi
+
+    - name: Enable DNS reflector over multiple networks
+      lineinfile:
+        path: "/etc/avahi/avahi-daemon.conf"
+        regexp: "^#allow-interfaces=eth0"
+        line: "allow-interfaces=eth0,wg0"
+      notify: Restart avahi
+
   become: true
   become_user: root
   when: wg_enable
