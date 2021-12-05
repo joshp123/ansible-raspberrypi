@@ -9,7 +9,6 @@
 5. You have [created an SSH key pair](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2#step-one%E2%80%94create-the-rsa-key-pair) and [copied the public key onto the rasberry-pi](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2#step-three%E2%80%94copy-the-public-key) for a non-root user.
 6. You have Ansible installed or otherwise available.
 7. If you want to configure WireGuard, you have configured [port-forwarding](https://docs.pi-hole.net/guides/vpn/wireguard/server/#forward-port-on-your-router) and [dynamic DNS](https://docs.pi-hole.net/guides/vpn/wireguard/server/#set-up-a-domain-name-for-your-router) on your router.
-8. If you want to configure Mullvad, you have a Mullvad account and have [downloaded a WireGuard configuration file](https://mullvad.net/download/config/) locally.
 
 ## What Will Be Configured
 
@@ -21,8 +20,6 @@
 3. [WireGuard](https://www.wireguard.com/) (optional)
     - Local devices accessible
     - Tunnel all Internet traffic to the raspberry-pi
-4. [Mullvad](https://mullvad.net/) (optional, requires WireGuard)
-    - Tunnel all Internet traffic to Mullvad (instead of to the raspberry-pi)
 
 ### What Will Not Be Configured
 
@@ -52,8 +49,6 @@ The following variables are in `./vars.yml` and you must set them:
 |pi_ipv6_addr           |IPv6 address of the raspberry-pi.                      |"2345:0425:2CA1:0000:0000:0567:5673:23b5"
 |wg_local_cidr          |Your local subnet.                                     |"192.168.100.0/24"
 |wg_listen_endpoint     |Dynamic DNS entry for the raspberry-pi.                |"pi.example.com"
-|wg_mullvad_interface   |Name you want to give the Mullvad interface.           |"mullvad-us7"
-|wg_mullvad_conf        |Path to the Mullvad config file you downloaded.        |"~/Downloads/mullvad-us7.conf"
 |wg_peers               |List of peers to create WireGuard configurations for.  |(see `./vars.yml`)
 
 ## Warnings

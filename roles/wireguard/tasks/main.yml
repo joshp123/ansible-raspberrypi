@@ -79,13 +79,6 @@
         dest: /etc/wireguard/wg0.conf
       notify: Restart wg0
 
-    - name: Mullvad
-      block:
-        - include_tasks: mullvad.yml
-      when: wg_mullvad_enable
-      tags:
-        - mullvad
-
   become: true
   become_user: root
   when: wg_enable

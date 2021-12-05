@@ -8,15 +8,6 @@
   become: true
   become_user: root
 
-- name: "Restart {{ wg_mullvad_interface }}"
-  systemd:
-    name: "wg-quick@{{ wg_mullvad_interface }}.service"
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
-  become: true
-  become_user: root
-
 - name: Apply sysctl
   command: sysctl -p
   become: true
