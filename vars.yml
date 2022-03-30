@@ -5,15 +5,15 @@ fallback_ipv4_dns1: "1.1.1.1"
 fallback_ipv4_dns2: "1.0.0.1"
 
 # Plaintext password for the pihole web UI
-pi_webpassword: ""
+pi_webpassword: "705f2d3e"
 
 # I tried getting these from ansible_facts dynamically but gave up
-pi_ipv4_addr: "192.168.100.xx/24"
+pi_ipv4_addr: "192.168.1.111/24"
 pi_ipv6_addr: ""
 
-wg_local_cidr: "192.168.100.0/24"
+wg_local_cidr: "192.168.1.0/24"
 # The Dynamic DNS entry you configured
-wg_listen_endpoint: ""
+wg_listen_endpoint: "wireguard.joshpalmer.co.uk"
 
 # Don't have to match
 wg_mullvad_interface: ""
